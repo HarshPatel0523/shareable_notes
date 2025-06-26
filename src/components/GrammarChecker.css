@@ -1,0 +1,59 @@
+.grammar-checker {
+  height: 100%;
+}
+
+.grammar-error {
+  border-bottom: 2px wavy #e53e3e;
+  cursor: help;
+  position: relative;
+  background: rgba(229, 62, 62, 0.05);
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+.grammar-error:hover {
+  background: rgba(229, 62, 62, 0.1);
+}
+
+/* Tooltip for grammar errors */
+.grammar-error:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #e53e3e 0%, #fc8181 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 8px;
+  max-width: 250px;
+  white-space: normal;
+  word-wrap: break-word;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.grammar-error:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: #e53e3e;
+  z-index: 1000;
+  margin-bottom: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grammar-error:hover::after {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    max-width: 200px;
+  }
+}

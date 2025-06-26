@@ -1,0 +1,126 @@
+.enhanced-grammar-checker {
+  position: relative;
+  height: 100%;
+}
+
+.grammar-error-highlight {
+  background: rgba(231, 76, 60, 0.1);
+  border-bottom: 2px wavy #e74c3c;
+  cursor: help;
+  position: relative;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+.grammar-error-highlight:hover {
+  background: rgba(231, 76, 60, 0.2);
+}
+
+.grammar-fixed {
+  background: rgba(72, 187, 120, 0.1);
+  border-bottom: 2px solid #48bb78;
+  animation: fixedFlash 0.5s ease-out;
+}
+
+@keyframes fixedFlash {
+  0% { background: rgba(72, 187, 120, 0.3); }
+  100% { background: rgba(72, 187, 120, 0.1); }
+}
+
+.grammar-checking-indicator {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 0.8rem;
+  color: #6c5ce7;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #6c5ce7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.grammar-tooltip {
+  position: fixed;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%) translateY(-100%);
+  margin-top: -8px;
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.tooltip-content {
+  padding: 1rem;
+}
+
+.error-type {
+  background: #e74c3c;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.error-message {
+  color: #4a5568;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.error-suggestion {
+  color: #2d3748;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: 4px;
+}
+
+.apply-suggestion {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.apply-suggestion:hover {
+  background: #38a169;
+  transform: translateY(-1px);
+}
+
+.grammar-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: white;
+}

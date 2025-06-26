@@ -1,0 +1,442 @@
+.rich-text-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+}
+
+.editor-header {
+  padding: 2rem 2.5rem 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.note-title-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a202c;
+  background: transparent;
+  margin-bottom: 0.75rem;
+  direction: ltr;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.note-title-input:focus {
+  color: #6c5ce7;
+}
+
+.note-title-input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+/* Title selection styling */
+.note-title-input::selection {
+  background: #6c5ce7;
+  color: white;
+}
+
+.note-title-input::-moz-selection {
+  background: #6c5ce7;
+  color: white;
+}
+
+.note-meta {
+  color: #718096;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 2.5rem;
+  background: white;
+  border-bottom: 2px solid #f1f5f9;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Add styling for the current font size indicator */
+.current-font-size {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  background: #e5e7eb;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.font-size-select {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  min-width: 100px;
+  font-weight: 500;
+  color: #4a5568;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.toolbar-btn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  min-width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a5568;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar-btn:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.toolbar-btn.active {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  color: white;
+  border-color: #6c5ce7;
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+.toolbar-btn strong {
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.toolbar-btn em {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.toolbar-btn u {
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.font-size-select {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  min-width: 100px;
+  font-weight: 500;
+  color: #4a5568;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.font-size-select:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.font-size-select:hover {
+  border-color: #cbd5e0;
+}
+
+.editor-content {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  background: white;
+  position: relative;
+}
+
+/* ... (keep all the existing CSS until content-editable section) ... */
+
+.content-editable span[style*="font-size"],
+.content-editable span[data-font-size] {
+  direction: ltr !important;
+  display: inline !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+}
+
+.content-editable {
+  min-height: 100%;
+  outline: none;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  color: #2d3748;
+  direction: ltr;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  
+  /* Critical CSS for proper cursor behavior */
+  writing-mode: horizontal-tb;
+  unicode-bidi: isolate;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  
+  /* Ensure proper text selection and cursor */
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  
+  /* Cursor styling */
+  caret-color: #6c5ce7;
+  cursor: text;
+}
+
+/* FIXED: Better font size span handling */
+.content-editable span[style*="font-size"] {
+  direction: ltr !important;
+  display: inline !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+}
+
+/* FIXED: Ensure font sizes are properly inherited */
+.content-editable span {
+  direction: ltr;
+  unicode-bidi: inherit;
+}
+
+/* Enhanced formatting visibility */
+.content-editable strong,
+.content-editable b {
+  font-weight: 900 !important;
+  color: #2d3748 !important;
+}
+
+.content-editable em,
+.content-editable i {
+  font-style: italic !important;
+  color: #4a5568 !important;
+}
+
+.content-editable u {
+  text-decoration: underline !important;
+  text-decoration-color: #6c5ce7 !important;
+  text-decoration-thickness: 2px !important;
+  color: #2d3748 !important;
+}
+
+/* Ensure all child elements maintain proper text direction */
+.content-editable * {
+  direction: ltr;
+  unicode-bidi: inherit;
+}
+
+.content-editable p {
+  margin: 0 0 1.2rem 0;
+  direction: ltr;
+  text-align: inherit;
+  min-height: 1.7rem;
+}
+
+.content-editable p:last-child {
+  margin-bottom: 0;
+}
+
+.content-editable br {
+  display: block;
+  margin: 0;
+  content: "";
+}
+
+.content-editable ul,
+.content-editable ol {
+  margin: 1.2rem 0;
+  padding-left: 2.5rem;
+  direction: ltr;
+}
+
+.content-editable ul {
+  list-style-type: disc;
+}
+
+.content-editable ol {
+  list-style-type: decimal;
+}
+
+.content-editable li {
+  margin-bottom: 0.5rem;
+  direction: ltr;
+  text-align: left;
+  line-height: 1.6;
+  color: #4a5568;
+}
+
+.content-editable li::marker {
+  color: #6c5ce7;
+  font-weight: 600;
+}
+
+/* Text alignment classes */
+.content-editable[style*="text-align: center"] {
+  text-align: center !important;
+}
+
+.content-editable[style*="text-align: right"] {
+  text-align: right !important;
+}
+
+.content-editable[style*="text-align: left"] {
+  text-align: left !important;
+}
+
+/* FIXED: Better text selection styling for content editable */
+.content-editable::selection {
+  background: #6c5ce7 !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+
+.content-editable::-moz-selection {
+  background: #6c5ce7 !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+
+/* FIXED: Selection styling for all child elements */
+.content-editable *::selection {
+  background: #6c5ce7 !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+
+.content-editable *::-moz-selection {
+  background: #6c5ce7 !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+
+/* FIXED: Specific selection styling for formatted text */
+.content-editable strong::selection,
+.content-editable b::selection,
+.content-editable em::selection,
+.content-editable i::selection,
+.content-editable u::selection,
+.content-editable span::selection {
+  background: #6c5ce7 !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+
+.content-editable strong::-moz-selection,
+.content-editable b::-moz-selection,
+.content-editable em::-moz-selection,
+.content-editable i::-moz-selection,
+.content-editable u::-moz-selection,
+.content-editable span::-moz-selection {
+  background: #6c5ce7 !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+
+/* Focus styling */
+.content-editable:focus {
+  background-color: #fff;
+  caret-color: #6c5ce7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .editor-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .note-title-input {
+    font-size: 1.8rem;
+  }
+  
+  .editor-toolbar {
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+  
+  .toolbar-group {
+    gap: 0.25rem;
+    padding: 0.25rem;
+  }
+  
+  .toolbar-btn {
+    padding: 0.6rem 0.8rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .editor-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .content-editable {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .editor-header {
+    padding: 1rem;
+  }
+  
+  .note-title-input {
+    font-size: 1.5rem;
+  }
+  
+  .editor-toolbar {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .toolbar-group {
+    margin-bottom: 0.5rem;
+  }
+  
+  .toolbar-btn {
+    padding: 0.5rem;
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+  
+  .editor-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .content-editable {
+    font-size: 0.95rem;
+  }
+}
