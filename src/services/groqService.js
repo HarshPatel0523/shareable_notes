@@ -9,10 +9,10 @@ const groq = new Groq({
 
 // Available models for different tasks
 const MODELS = {
-  GENERAL: "llama3-8b-8192",
+  GENERAL: "llama-3.1-8b-instant",
   LARGE: "llama3-70b-8192",
   MIXTRAL: "mixtral-8x7b-32768",
-  FAST: "llama3-8b-8192" // Added the missing FAST model
+  FAST: "llama-3.1-8b-instant"
 };
 
 export class GroqService {
